@@ -1,7 +1,7 @@
 @layer base {
     :root {
-      --background: #1A1718;
-      --foreground: #F5F3EE;
+      --background: #F5F3EE;
+      --foreground: #1A1718;
       --primary: #F5F3EE;
       --secondary: #1A1718;
       --gray: #6B6869;

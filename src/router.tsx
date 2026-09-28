@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./components/layout/RootLayout";
+import { Home } from "./pages/Home";
 
 export const router = createBrowserRouter([
     {
@@ -7,7 +8,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <h1>Devo</h1>,
+                element: <Home />,
             },
             {
                 path: '/formulario',
