@@ -1,5 +1,9 @@
-export function DevotionalForm() {
+import { StepProgress } from "./Progress"
+
+export const DevotionalForm = () => {
     return(
-        <h1>Formulário</h1>
+        <>
+            <StepProgress currentStep={1} totalSteps={4} />
+        </>
     )
 }
