@@ -11,9 +11,9 @@ export function Home() {
                 Crie seu plano<br className="hidden sm:block" /> de devocional.
             </h1>
 
-            <p className="text-base md:text-lg text-secondary leading-relaxed mb-10 max-w-md tracking-tight">
+            <p className="text-base md:text-lg text-secondary leading-relaxed mb-10 max-w-2md tracking-tight">
                 Desenvolvido para facilitar seu momento com Deus.<br className="hidden sm:block" />
-                Não sabe como começar? Gere um plano e comece agora!
+                Não sabe por onde começar o seu devocional? Gere um plano agora!
             </p>
 
             <Button 
