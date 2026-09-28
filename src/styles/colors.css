@@ -1,0 +1,23 @@
+@layer base {
+    :root {
+      --background: #1A1718;
+      --foreground: #F5F3EE;
+      --primary: #F5F3EE;
+      --secondary: #1A1718;
+      --gray: #6B6869;
+      --red: #BA1200;
+      --muted: #6B6869;
+    }
+  }
+  
+  @theme {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+    --color-gray: var(--gray);
+    --color-red: var(--red);
+    --color-muted: var(--muted);
+  
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  }
