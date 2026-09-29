@@ -16,7 +16,6 @@ import {
     RotateCcw,
     Download
 } from 'lucide-react';
-import html2pdf from 'html2pdf.js';
 import html2canvasPro from 'html2canvas-pro';
 import jsPDF from 'jspdf';
 import { PageHero } from '../components/shared/PageHero';
