@@ -18,7 +18,7 @@ export function StepProgress({ currentStep, totalSteps }: StepProgressProps) {
                     aria-valuemin={1}
                     aria-valuemax={totalSteps}
                     aria-label={`Passo ${currentStep} de ${totalSteps}`}
-                    className="bg-primary h-full rounded-full transition-all duration-300"
+                    className="bg-gray h-full rounded-full transition-all duration-300"
                     style={{width: `${progress}`}}
                 />
             </div>

@@ -13,7 +13,7 @@ const baseClasses =
 const variantClasses = {
     primary: 'bg-secondary text-primary font-semibold rounded-full hover:bg-red',
     secondary: 'bg-background text-foreground border border-gray rounded-full hover:bg-red',
-    ghost: 'text-muted hover:text-foreground rounded-full hover:bg-gray/10',
+    ghost: 'text-muted hover:rounded-full hover:text-foreground hover:bg-gray/10',
 }
 
 export function Button({ 
