@@ -1,75 +1,67 @@
-# React + TypeScript + Vite
+# devo — Gerador de Planos Devocionais
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **devo** é uma aplicação web desenvolvida para criar planos de devocional cristão personalizados com recurso a Inteligência Artificial. Com base em respostas a um formulário simples (tema, duração, livros de preferência, público-alvo e objetivo espiritual), o sistema gera um itinerário detalhado com leituras bíblicas (NVI), perguntas para reflexão, desafios práticos e mensagens de incentivo.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Funcionalidades
 
-## React Compiler
+- **Formulário Dinâmico em Etapas:** Interface intuitiva para recolha dos objetivos espirituais do utilizador.
+- **Plano Personalizado por IA:** Estruturação semanal de leituras bíblicas, temas, reflexões e desafios práticos.
+- **Visualização de Resultados:** Apresentação clara através de cartões indicadores e blocos de conteúdo detalhados.
+- **Persistência de Dados Local:** Armazenamento local com `useFormStorage` para consulta dos planos gerados.
+- **Interface Responsiva & Tema Consistente:** Design limpo, moderno e otimizado para dispositivos móveis e desktop.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **[React](https://react.dev/)** + **[TypeScript](https://www.typescriptlang.org/)**
+- **[Vite](https://vitejs.dev/)** — Build tool rápido para desenvolvimento Web
+- **[Tailwind CSS](https://tailwindcss.com/)** — Estilização moderna baseada em utilitários
+- **[React Router DOM](https://reactrouter.com/)** — Gestão de rotas na aplicação
+- **[Lucide React](https://lucide.dev/)** — Biblioteca de ícones
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Estrutura do Projeto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+devo/
+├── src/
+│   ├── components/      # Componentes partilhados (Button, Header, PageHero, etc.)
+│   ├── data/            # Dados estáticos e opções de formulário
+│   ├── features/        # Componentes de funcionalidades (Form, ResultCard, etc.)
+│   ├── hooks/           # Custom Hooks (useFormStorage, etc.)
+│   ├── pages/           # Páginas da aplicação (Home, FormPage, FormResultsPage)
+│   ├── styles/          # Ficheiros CSS globais e variáveis de tema (@theme)
+│   ├── types/           # Definições de tipos TypeScript (devotional.ts, etc.)
+│   ├── main.tsx         # Ponto de entrada do React
+└───└── router.tsx       # Configuração de rotas da aplicação
 
+## Instalação
+```bash
+git clone https://github.com/rafachoii/devo.git
+cd devo
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Execução
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Acesse a URL exibida pelo Vite, normalmente:
 
+```text
+http://localhost:5173
+```
+
+## Outros comandos
+
+```bash
+npm run build
+npm run preview
+npm run lint
 ```
