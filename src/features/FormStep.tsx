@@ -9,6 +9,7 @@ export interface FormStepProps {
     title: string
     question: string
     inputProps: InputProps
+    initialValue?: string
     submitButtonProps?: {
         label: string
         icon?: LucideIcon
@@ -54,6 +55,7 @@ export function FormStep({ icon: Icon, title, question, inputProps, submitButton
                             variant="ghost"
                             icon={ArrowLeft}
                             iconPosition="left"
+                            onClick={onBack}
                             className="order-2 flex-1 justify-center rounded-xl py-3 sm:order-1 tracking-tight"
                         >
                             Voltar

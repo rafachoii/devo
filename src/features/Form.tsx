@@ -36,10 +36,11 @@ export const DevotionalForm = () => {
 
     return(
         <>
-            <StepProgress currentStep={currentStepIndex} totalSteps={totalSteps} />
+            <StepProgress currentStep={currentStepIndex + 1} totalSteps={totalSteps} />
             <FormStep
                 key={currentStep.id}
                 {...currentStep}
+                initialValue={formData[currentStep.id as keyof FormData] || ''}
                 onBack = {handlePreviousStep}
                 onNext = {handleNextStep}
                 hideBackButton = {currentStepIndex === 0}

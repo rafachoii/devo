@@ -8,18 +8,18 @@ export function StepProgress({ currentStep, totalSteps }: StepProgressProps) {
 
     return (
         <div className="mb-4">
-            <p className="text-base md:text-lg text-secondary mb-10 tracking-tight">
+            <p className="text-base md:text-lg text-secondary mb-4 tracking-tight">
                 Passo {currentStep} de {totalSteps}
             </p>
-            <div className="bg-border h-1 w-full overflow-hidden rounded-full">
+            <div className="bg-gray h-1 w-full overflow-hidden rounded-full">
                 <div
                     role="progressbar"
                     aria-valuenow={currentStep}
                     aria-valuemin={1}
                     aria-valuemax={totalSteps}
                     aria-label={`Passo ${currentStep} de ${totalSteps}`}
-                    className="bg-gray h-full rounded-full transition-all duration-300"
-                    style={{width: `${progress}`}}
+                    className="bg-red h-full rounded-full transition-all duration-300"
+                    style={{width: `${progress}%`}}
                 />
             </div>
         </div>
