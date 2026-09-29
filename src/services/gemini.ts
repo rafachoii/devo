@@ -2,77 +2,97 @@ import { buildAPIPrompt } from "../components/data/aiPrompt";
 import type { FormRecord } from "../components/data/formulario";
 import type { DevotionalResponse } from "../types/devotional";
 
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models'
-const DEFAULT_MODEL = 'gemini-3.8-flash'
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
+const DEFAULT_MODEL = 'gemini-3.8-flash';
 
 interface GeminiPart {
-    text?: string
+    text?: string;
 }
 
 interface GeminiResponse {
     candidates?: Array<{
         content?: {
-            parts?: GeminiPart[]
-        }
-        finishReason?: string
-    }>
+            parts?: GeminiPart[];
+        };
+        finishReason?: string;
+    }>;
     error?: {
-        message?: string
-        status?: string
-    }
+        message?: string;
+        status?: string;
+    };
 }
 
-function getApiKey() {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY?.trim()
+function getApiKey(): string {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY?.trim();
 
     if (!apiKey) {
         throw new Error(
             'Defina VITE_GEMINI_API_KEY no arquivo .env.local e reinicie o servidor'
-        )
+        );
     }
 
-    return apiKey
+    return apiKey;
 }
 
-function getModel() {
-    return import.meta.env.VITE_GEMINI_MODEL?.trim() || DEFAULT_MODEL
+function getModel(): string {
+    return import.meta.env.VITE_GEMINI_MODEL?.trim() || DEFAULT_MODEL;
 }
 
-function extractText(payload: GeminiResponse) {
+async function fetchWithRetry(
+    url: string,
+    options: RequestInit,
+    retries = 3,
+    delay = 1500
+): Promise<Response> {
+    for (let i = 0; i < retries; i++) {
+        const response = await fetch(url, options);
+
+        if (response.status !== 503 && response.status !== 429) {
+            return response;
+        }
+
+        if (i < retries - 1) {
+            await new Promise<void>((resolve) => setTimeout(resolve, delay * (i + 1)));
+        }
+    }
+    return fetch(url, options);
+}
+
+function extractText(payload: GeminiResponse): string {
     const text = payload.candidates
         ?.flatMap((candidate) => candidate.content?.parts ?? [])
         .map((part) => part.text ?? '')
         .join('')
-        .trim()
+        .trim();
 
     if (!text) {
-        throw new Error('A API do Gemini não retornou texto na resposta.')
+        throw new Error('A API do Gemini não retornou texto na resposta.');
     }
 
-    return text
+    return text;
 }
 
 function parseInsights(text: string): DevotionalResponse {
     const cleaned = text
         .replace(/^```(?:json)?\s*/i, '')
         .replace(/\s*```$/i, '')
-        .trim()
+        .trim();
 
     try {
-        return JSON.parse(cleaned) as DevotionalResponse
+        return JSON.parse(cleaned) as DevotionalResponse;
     } catch {
-        throw new Error('Não foi possível interpretar o JSON retornado pelo Gemini.')
+        throw new Error('Não foi possível interpretar o JSON retornado pelo Gemini.');
     }
 }
 
 export async function analyzeForm(
     form: FormRecord
 ): Promise<DevotionalResponse> {
-    const apiKey = getApiKey()
-    const model = getModel()
-    const prompt = buildAPIPrompt(form)
+    const apiKey = getApiKey();
+    const model = getModel();
+    const prompt = buildAPIPrompt(form);
 
-    const response = await fetch(
+    const response = await fetchWithRetry(
         `${GEMINI_API_URL}/${model}:generateContent`,
         {
             method: 'POST',
@@ -93,16 +113,22 @@ export async function analyzeForm(
                 },
             }),
         }
-    )
+    );
 
-    const payload = (await response.json()) as GeminiResponse
+    const payload = (await response.json()) as GeminiResponse;
 
     if (!response.ok) {
+        if (response.status === 503) {
+            throw new Error(
+                'Os servidores da IA estão temporariamente sobrecarregados. Por favor, tente novamente em instantes.'
+            );
+        }
+
         throw new Error(
             payload.error?.message ??
-                `Falha ao chamar o Gemini (${response.status}).`
-        )
+            `Falha ao chamar o Gemini (${response.status}).`
+        );
     }
 
-    return parseInsights(extractText(payload))
+    return parseInsights(extractText(payload));
 }

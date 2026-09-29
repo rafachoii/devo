@@ -32,7 +32,7 @@ export function FormResultsPage() {
     const navigate = useNavigate();
 
     const formData = id ? getFormData(id) : null;
-    const { insights, isLoading, error } = useFormInsights(formData);
+    const { insights, isLoading, error, refetch } = useFormInsights(formData);
 
     const devotionalRef = useRef<HTMLDivElement>(null);
     const [isExporting, setIsExporting] = useState(false);
@@ -171,7 +171,7 @@ export function FormResultsPage() {
                         </p>
                     </div>
                     <Button
-                        onClick={() => window.location.reload()}
+                        onClick={refetch}
                         variant="primary"
                         icon={RotateCcw}
                         iconPosition="left"
