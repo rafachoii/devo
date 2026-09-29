@@ -1,0 +1,17 @@
+interface PageHeroProps {
+    title: string
+    subtitle: string
+}
+
+export function PageHero({ title, subtitle }: PageHeroProps) {
+    return (
+        <>
+            <h1 className="text-foreground mb-1 text-2xl sm:text-3xl1 tracking-tighter">
+                {title}
+            </h1>
+            <p className="text-muted-foreground mb-8 text-sm tracking-tighter">
+                {subtitle}
+            </p>
+        </>
+    )
+}

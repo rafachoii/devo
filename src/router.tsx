@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./components/layout/RootLayout";
 import { Home } from "./pages/Home";
 import { FormPage } from "./pages/FormPage";
+import { FormResultsPage } from "./pages/FormResultsPage";
 
 export const router = createBrowserRouter([
     {
@@ -16,8 +17,8 @@ export const router = createBrowserRouter([
                 element: <FormPage />,
             },
             {
-                path: '/resultado',
-                element: <h1>Resultado do Plano de Devocional</h1>,
+                path: '/resultado/:id',
+                element: <FormResultsPage />,
             },
         ],
     },

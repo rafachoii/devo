@@ -63,4 +63,6 @@ export const formSteps = [
     },
 ] satisfies FormStepProps[]
 
-export type FormStepsData = Record<(typeof formSteps)[number]['id'], string>
+export type FormData = Record<(typeof formSteps)[number]['id'], string>
+
+export type FormRecord = FormData & { id: string }
