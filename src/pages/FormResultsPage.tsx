@@ -42,7 +42,7 @@ export function FormResultsPage() {
                 <ResultCard
                     icon={Users}
                     label="Público Alvo"
-                    value={data.public}
+                    value={data.target}
                     subtitle='Público alvo do plano'
                 />
                 <ResultCard

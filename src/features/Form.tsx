@@ -19,7 +19,7 @@ export const DevotionalForm = () => {
 
         if (currentStepIndex + 1 > totalSteps - 1) {
             const id = saveFormData(updatedFormData)
-            void navigate('/resultado/${id')
+            void navigate(`/resultado/${id}`)
             return
         }
 

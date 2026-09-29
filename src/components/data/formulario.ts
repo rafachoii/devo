@@ -38,7 +38,7 @@ export const formSteps = [
         }
     },
     {
-        id: 'public',
+        id: 'target',
         icon: Users,
         title: 'Público Alvo',
         question: 'Para quem é esse plano?',
