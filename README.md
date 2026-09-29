@@ -38,8 +38,10 @@ devo/
 │   ├── types/           # Definições de tipos TypeScript (devotional.ts, etc.)
 │   ├── main.tsx         # Ponto de entrada do React
 └───└── router.tsx       # Configuração de rotas da aplicação
+```
 
 ## Instalação
+
 ```bash
 git clone https://github.com/rafachoii/devo.git
 cd devo
