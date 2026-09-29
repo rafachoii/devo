@@ -2,18 +2,19 @@ import { ArrowLeft, ArrowRight, type LucideIcon } from "lucide-react";
 import { Input, type InputProps } from "../components/shared/Input";
 import { Button } from "../components/shared/Button";
 
-interface FormStepPorps {
+export interface FormStepProps {
+    id: string
     icon: LucideIcon
     title: string
     question: string
     inputProps: InputProps
     submitButtonProps?: {
         label: string
-        emojiIcon?: string
+        icon?: LucideIcon
     }
 }
 
-export function FormStep({ icon: Icon, title, question, inputProps, submitButtonProps }: FormStepPorps) {
+export function FormStep({ icon: Icon, title, question, inputProps, submitButtonProps }: FormStepProps) {
     return (
         <div className="bg-primary rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.2)] sm:p-8">
             <div className="bg-primary mb-4 flex h-15 w-15 items-center justify-center rounded-xl">
@@ -44,7 +45,7 @@ export function FormStep({ icon: Icon, title, question, inputProps, submitButton
                         className="order-1 flex-1 sm:order-2 tracking-tight"
                     >
                         {submitButtonProps?.label ?? 'Próximo'}
-                        {submitButtonProps?.emojiIcon}
+
                     </Button>
                 </div>
             </form>

@@ -1,22 +1,17 @@
-import { Goal } from "lucide-react"
 import { FormStep } from "./FormStep"
 import { StepProgress } from "./Progress"
+import { simuationFormSteps } from "../components/data/formulario"
 
 export const DevotionalForm = () => {
+    const currentStep = simuationFormSteps[0]
+    
     return(
         <>
-            <StepProgress currentStep={1} totalSteps={4} />
+            <StepProgress currentStep={1} totalSteps={5} />
             <FormStep
-                icon={Goal}
-                title="Tema Principal"
-                question="Qual tema principal você deseja para o seu plano?"
-                inputProps={{
-                    type: 'text',
-                    placeholder: 'Ex: Humilde como Jesus'
-                }}      
-            >
-
-            </FormStep>
+                key={currentStep.id}
+                {...currentStep}
+            />
         </>
     )
 }
