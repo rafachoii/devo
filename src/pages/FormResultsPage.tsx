@@ -1,15 +1,15 @@
-import { 
-    CalendarClock, 
-    Goal, 
-    BookOpenText, 
-    Users, 
-    CircleCheckBig, 
-    ArrowLeft, 
-    Sparkles, 
-    BookOpen, 
-    HelpCircle, 
-    CheckCircle2, 
-    Heart 
+import {
+    CalendarClock,
+    Goal,
+    BookOpenText,
+    Users,
+    CircleCheckBig,
+    ArrowLeft,
+    Sparkles,
+    BookOpen,
+    HelpCircle,
+    CheckCircle2,
+    Heart
 } from 'lucide-react';
 import { PageHero } from '../components/shared/PageHero';
 import { ResultCard } from '../features/ResultCard';
@@ -27,16 +27,16 @@ export function FormResultsPage() {
 
     if (!formData) {
         return (
-            <main className="mx-auto max-w-6xl px-4 py-20 sm:py-12 animate-in fade-in duration-500">
-                <PageHero
-                    title='Resultado do plano'
-                    subtitle='Com base no perfil e objetivos informados.'
-                />
-                <Button 
+            <main className="mx-auto flex min-h-[65vh] max-w-3xl flex-col items-center justify-center px-4 py-20 text-center animate-in fade-in duration-500">
+                <h1 className="text-4xl md:text-5xl lg:text-[84px] font-extrabold text-red tracking-tighter leading-[1.05] mb-14">
+                    Ops! Parece que esse resultado não existe...
+                </h1>
+                <Button
                     onClick={() => navigate('/formulario')}
                     variant="primary"
                     icon={ArrowLeft}
                     iconPosition="left"
+                    className="hover:bg-red hover:border-red transition-all duration-300"
                 >
                     Criar novo plano
                 </Button>
@@ -105,8 +105,8 @@ export function FormResultsPage() {
 
                     <div className="space-y-6">
                         {devotional.weeksDetailed.map((weekItem, index) => (
-                            <div 
-                                key={index} 
+                            <div
+                                key={index}
                                 className="bg-primary rounded-2xl p-6 sm:p-8 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.08)] border border-gray/10 space-y-6"
                             >
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray/10">
@@ -125,7 +125,7 @@ export function FormResultsPage() {
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         {weekItem.scripture.items.map((item, scriptureIndex) => (
-                                            <span 
+                                            <span
                                                 key={scriptureIndex}
                                                 className="rounded-lg bg-secondary/10 text-foreground px-3 py-1.5 text-xs font-semibold tracking-tight border border-gray/5"
                                             >
