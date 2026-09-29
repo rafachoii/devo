@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/logo.svg" alt="devo logo" width="140" />
+  <img src="./public/devo_logo.png" alt="devo logo" width="140" />
 </p>
 
 # devo — Gerador de Planos Devocionais
