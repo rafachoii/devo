@@ -1,17 +1,19 @@
 interface PageHeroProps {
-    title: string
-    subtitle: string
+    title: string;
+    subtitle?: string;
 }
 
 export function PageHero({ title, subtitle }: PageHeroProps) {
     return (
-        <>
-            <h1 className="text-foreground mb-1 text-2xl sm:text-3xl1 tracking-tighter">
+        <div className="mb-8 flex flex-col items-center text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-[52px] font-extrabold text-foreground tracking-tighter leading-[1.05] mb-6 max-w-2xl">
                 {title}
             </h1>
-            <p className="text-muted-foreground mb-8 text-sm tracking-tighter">
-                {subtitle}
-            </p>
-        </>
-    )
+            {subtitle && (
+                <p className="text-base md:text-lg text-muted leading-relaxed mb-2 max-w-md tracking-tight">
+                    {subtitle}
+                </p>
+            )}
+        </div>
+    );
 }
