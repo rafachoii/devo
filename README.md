@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./public/logo.svg" alt="devo logo" width="140" />
+</p>
+
 # devo — Gerador de Planos Devocionais
 
 O **devo** é uma aplicação web desenvolvida para criar planos de devocional cristão personalizados com recurso a Inteligência Artificial. Com base em respostas a um formulário simples (tema, duração, livros de preferência, público-alvo e objetivo espiritual), o sistema gera um itinerário detalhado com leituras bíblicas (NVI), perguntas para reflexão, desafios práticos e mensagens de incentivo.
