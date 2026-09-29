@@ -33,15 +33,17 @@ O **devo** é uma aplicação web desenvolvida para criar planos de devocional c
 ```text
 devo/
 ├── src/
-│   ├── components/      # Componentes partilhados (Button, Header, PageHero, etc.)
-│   ├── data/            # Dados estáticos e opções de formulário
-│   ├── features/        # Componentes de funcionalidades (Form, ResultCard, etc.)
-│   ├── hooks/           # Custom Hooks (useFormStorage, etc.)
+│   ├── assets/          # Imagens e recursos estáticos do projeto
+│   ├── components/      # Componentes de interface organizados por tipo
+│   │   ├── layout/      # Layouts globais da aplicação
+│   │   └── shared/      # Componentes reutilizáveis (Button, Header, Input, etc.)
+│   ├── features/        # Funcionalidades da aplicação (Form, Hero, ResultCard, etc.)
+│   ├── hooks/           # Custom hooks (useFormStorage, useFormInsights)
 │   ├── pages/           # Páginas da aplicação (Home, FormPage, FormResultsPage)
-│   ├── styles/          # Ficheiros CSS globais e variáveis de tema (@theme)
-│   ├── types/           # Definições de tipos TypeScript (devotional.ts, etc.)
-│   ├── main.tsx         # Ponto de entrada do React
-└───└── router.tsx       # Configuração de rotas da aplicação
+│   ├── services/        # Integrações com APIs e serviços externos
+│   ├── styles/          # Estilos globais e temas visuais
+│   ├── types/           # Definições TypeScript (devotional.ts)
+└───├── router.tsx       # Configuração de rotas da aplicação
 ```
 
 ## Instalação
