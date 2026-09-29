@@ -9,13 +9,17 @@ import {
     BookOpen,
     HelpCircle,
     CheckCircle2,
-    Heart
+    Heart,
+    Loader2,
+    AlertCircle,
+    RotateCcw
 } from 'lucide-react';
 import { PageHero } from '../components/shared/PageHero';
 import { ResultCard } from '../features/ResultCard';
 import { Button } from '../components/shared/Button';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useFormStorage } from '../hooks/useFormStorage';
+import { useFormInsights } from '../hooks/useFormInsights';
 import type { DevotionalResponse } from '../types/devotional';
 
 export function FormResultsPage() {
@@ -24,6 +28,7 @@ export function FormResultsPage() {
     const navigate = useNavigate();
 
     const formData = id ? getFormData(id) : null;
+    const { insights, isLoading, error } = useFormInsights(formData);
 
     if (!formData) {
         return (
@@ -44,7 +49,7 @@ export function FormResultsPage() {
         );
     }
 
-    const devotional: DevotionalResponse | null = (formData as any).result ?? null;
+    const devotional: DevotionalResponse | null = insights ?? (formData as any).result ?? null;
 
     return (
         <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14 animate-in fade-in duration-700">
@@ -86,8 +91,44 @@ export function FormResultsPage() {
                 />
             </div>
 
-            {devotional ? (
-                <section className="space-y-8">
+            {isLoading && !devotional && (
+                <div className="bg-primary rounded-2xl p-12 text-center border border-gray/10 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.08)] flex flex-col items-center justify-center">
+                    <Loader2 className="text-secondary animate-spin mb-4" size={36} />
+                    <h3 className="text-xl font-bold text-foreground tracking-tight mb-2">
+                        Gerando seu plano devocional...
+                    </h3>
+                    <p className="text-sm text-muted tracking-tight max-w-md">
+                        Nossa IA está analisando seus dados para estruturar leituras, perguntas de reflexão e desafios personalizados.
+                    </p>
+                </div>
+            )}
+
+            {/* ESTADO DE ERRO */}
+            {error && !isLoading && !devotional && (
+                <div className="bg-primary rounded-2xl p-8 sm:p-10 text-center border border-red/20 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.08)] flex flex-col items-center justify-center gap-4">
+                    <AlertCircle className="text-red shrink-0" size={40} />
+                    <div className="space-y-1">
+                        <h3 className="text-xl font-bold text-foreground tracking-tight">
+                            Não foi possível gerar seu plano
+                        </h3>
+                        <p className="text-sm text-muted tracking-tight max-w-md mx-auto">
+                            {error}
+                        </p>
+                    </div>
+                    <Button
+                        onClick={() => window.location.reload()}
+                        variant="primary"
+                        icon={RotateCcw}
+                        iconPosition="left"
+                        className="mt-2 text-xs"
+                    >
+                        Tentar novamente
+                    </Button>
+                </div>
+            )}
+
+            {devotional && (
+                <section className="space-y-8 animate-in fade-in duration-500">
                     <div className="bg-primary rounded-2xl p-6 sm:p-8 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.08)] border border-gray/10">
                         <div className="flex items-center gap-2 text-secondary mb-2">
                             <Sparkles size={18} />
@@ -175,16 +216,6 @@ export function FormResultsPage() {
                         ))}
                     </div>
                 </section>
-            ) : (
-                <div className="bg-primary rounded-2xl p-10 text-center border border-gray/10 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.08)]">
-                    <Sparkles className="mx-auto mb-3 text-secondary animate-pulse" size={32} />
-                    <h3 className="text-lg font-bold text-foreground tracking-tight mb-1">
-                        Gerando seu plano devocional...
-                    </h3>
-                    <p className="text-xs text-muted tracking-tight">
-                        Estamos estruturando suas leituras e reflexões personalizadas.
-                    </p>
-                </div>
             )}
         </main>
     );
