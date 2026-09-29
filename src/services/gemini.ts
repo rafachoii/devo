@@ -93,7 +93,7 @@ export async function analyzeForm(
     const prompt = buildAPIPrompt(form);
 
     const response = await fetchWithRetry(
-        `${GEMINI_API_URL}/${model}:generateContent`,
+        `${GEMINI_API_URL}/${model}:generateContent?key=${apiKey}`,
         {
             method: 'POST',
             headers: {
