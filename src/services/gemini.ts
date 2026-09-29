@@ -92,6 +92,9 @@ export async function analyzeForm(
     const model = getModel();
     const prompt = buildAPIPrompt(form);
 
+    console.log('Modelo carregado:', model);
+    console.log('URL da requisição:', `${GEMINI_API_URL}/${model}:generateContent`);
+
     const response = await fetchWithRetry(
         `${GEMINI_API_URL}/${model}:generateContent?key=${apiKey}`,
         {
