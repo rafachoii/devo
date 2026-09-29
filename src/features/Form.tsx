@@ -1,15 +1,25 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { FormStep } from "./FormStep"
 import { StepProgress } from "./Progress"
-import { simuationFormSteps } from "../components/data/formulario"
+import { formSteps, type FormStepsData } from "../components/data/formulario"
+import { useFormStorage } from "../hooks/useFormStorage"
 
 export const DevotionalForm = () => {
+    const { saveFormData } = useFormStorage()
+    const navigate = useNavigate()
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
-    const totalSteps = simuationFormSteps.length
-    const currentStep = simuationFormSteps[currentStepIndex]
+    const [formData, setFormData] = useState<FormStepsData>({} as FormStepsData) 
+    const totalSteps = formSteps.length
+    const currentStep = formSteps[currentStepIndex]
 
-    const handleNextStep = () => {
+    const handleNextStep = (value: string) => {
+        const updatedFormData = {...formData, [currentStep.id]: value}
+        setFormData(updatedFormData)
+
         if (currentStepIndex + 1 > totalSteps - 1) {
+            saveFormData(updatedFormData)
+            void navigate('/resultado')
             return
         }
 

@@ -1,7 +1,7 @@
 import { CalendarClock, Goal, BookOpenText, Users, CircleCheckBig, ArrowUpRight } from 'lucide-react';
 import type { FormStepProps } from '../../features/FormStep';
 
-export const simuationFormSteps: FormStepProps[] = [
+export const formSteps = [
     {
         id: 'theme',
         icon: Goal,
@@ -61,5 +61,6 @@ export const simuationFormSteps: FormStepProps[] = [
             icon: ArrowUpRight
         }
     },
+] satisfies FormStepProps[]
 
-]
+export type FormStepsData = Record<(typeof formSteps)[number]['id'], string>
