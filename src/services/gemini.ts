@@ -34,28 +34,26 @@ function getApiKey(): string {
     return apiKey;
 }
 
-function getModel(): string {
-    return import.meta.env.VITE_GEMINI_MODEL?.trim() || DEFAULT_MODEL;
-}
-
 async function fetchWithRetry(
     url: string,
     options: RequestInit,
-    retries = 3,
-    delay = 1500
+    maxAttempts = 2,
+    delay = 750
 ): Promise<Response> {
-    for (let i = 0; i < retries; i++) {
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
         const response = await fetch(url, options);
 
-        if (response.status !== 503 && response.status !== 429) {
+        if (
+            (response.status !== 503 && response.status !== 429) ||
+            attempt === maxAttempts
+        ) {
             return response;
         }
 
-        if (i < retries - 1) {
-            await new Promise<void>((resolve) => setTimeout(resolve, delay * (i + 1)));
-        }
+        await new Promise<void>((resolve) => setTimeout(resolve, delay));
     }
-    return fetch(url, options);
+
+    throw new Error('Não foi possível concluir a requisição ao Gemini.');
 }
 
 function extractText(payload: GeminiResponse): string {
@@ -89,14 +87,11 @@ export async function analyzeForm(
     form: FormRecord
 ): Promise<DevotionalResponse> {
     const apiKey = getApiKey();
-    const model = getModel();
+    const model = DEFAULT_MODEL;
     const prompt = buildAPIPrompt(form);
 
-    console.log('Modelo carregado:', model);
-    console.log('URL da requisição:', `${GEMINI_API_URL}/${model}:generateContent`);
-
     const response = await fetchWithRetry(
-        `${GEMINI_API_URL}/${model}:generateContent?key=${apiKey}`,
+        `${GEMINI_API_URL}/${model}:generateContent`,
         {
             method: 'POST',
             headers: {
