@@ -3,7 +3,7 @@ import type { FormRecord } from "../components/data/formulario";
 import type { DevotionalResponse } from "../types/devotional";
 
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
-const DEFAULT_MODEL = 'gemini-3.8-flash';
+const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 
 interface GeminiPart {
     text?: string;
