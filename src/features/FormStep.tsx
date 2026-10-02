@@ -24,15 +24,30 @@ interface ActionButtonProps {
 
 export function FormStep({ icon: Icon, title, question, inputProps, submitButtonProps, onBack, onNext, hideBackButton }: FormStepProps & ActionButtonProps) {
     const [inputValue, setInputValue] = useState('')
+    const isNumericInput = inputProps.inputMode === 'numeric'
+    const numericValue = Number(inputValue)
+    const isWithinNumericRange =
+        !isNumericInput ||
+        (inputValue !== '' &&
+            Number.isSafeInteger(numericValue) &&
+            (inputProps.min === undefined || numericValue >= Number(inputProps.min)) &&
+            (inputProps.max === undefined || numericValue <= Number(inputProps.max)))
+    const isInputValid = Boolean(inputValue) && isWithinNumericRange
 
     const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        if (!inputValue) {
+        if (!isInputValid) {
             return
         }
 
         onNext(inputValue)
+    }
+
+    const handleInputChange = (value: string) => {
+        if (!isNumericInput || /^\d*$/.test(value)) {
+            setInputValue(value)
+        }
     }
 
     return (
@@ -47,7 +62,7 @@ export function FormStep({ icon: Icon, title, question, inputProps, submitButton
                 {question}
             </h3>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <Input {...inputProps} value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                <Input {...inputProps} value={inputValue} onChange={(e) => handleInputChange(e.target.value)} />
                 <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
                     {!hideBackButton && (
                         <Button
@@ -65,7 +80,7 @@ export function FormStep({ icon: Icon, title, question, inputProps, submitButton
                         type="submit"
                         variant="primary"
                         icon={!submitButtonProps ? ArrowRight : undefined}
-                        disabled={!inputValue}
+                        disabled={!isInputValid}
                         className="order-1 flex-1 sm:order-2 tracking-tight"
                     >
                         {submitButtonProps?.label ?? 'Próximo'}

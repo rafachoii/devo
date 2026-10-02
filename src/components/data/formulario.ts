@@ -20,6 +20,8 @@ export const formSteps = [
         inputProps: {
             placeholder: 'Ex: 4',
             suffix: 'semanas',
+            inputMode: 'numeric',
+            pattern: '[0-9]*',
             min: 1,
             max: 5,
             maxLength: 1
@@ -32,6 +34,8 @@ export const formSteps = [
         question: 'Quantos livros diferentes da Bíblia você deseja incluir na leitura semanal?',
         inputProps: {
             placeholder: 'Ex: 3',
+            inputMode: 'numeric',
+            pattern: '[0-9]*',
             min: 1,
             max: 5,
             maxLength: 1
